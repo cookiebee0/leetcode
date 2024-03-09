@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void a(int up,int down,string s,vector<string> &ans)
+    {
+        if(up==0 && down==0)
+        {
+            ans.emplace_back(s);
+        }
+        if(up>0)
+        {
+            a(up-1,down,s+"(",ans);
+        }
+        if(down>0 && down>up)
+        {
+            a(up,down-1,s+")",ans);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        string s="(";
+        a(n-1,n,s,ans);
+        return ans;
+    }
+};
+// 0ms 15.14MB
