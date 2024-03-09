@@ -8,3 +8,20 @@ public:
     }
 };
 // 2ms 7.14MB
+
+class Solution {
+public:
+    int fib(int n) {
+        if(n<=1)
+        return n;
+        int a=0,b=1;
+        for(int i=2;i<=n;i++)
+        {
+            int c=a+b;
+            a=b;
+            b=c;
+        }
+        return b;
+    }
+};
+// 0ms 7.12MB
