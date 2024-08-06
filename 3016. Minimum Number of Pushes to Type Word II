@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumPushes(string word) {
+        // 8+8+8+2
+        vector<int> l(26,0);
+        for(auto &i:word)
+        l[i-'a']++;
+        sort(l.begin(),l.end());
+        int num[5]={0,8,8,8,2},ans=0;
+        int temp=1;
+        for(int i=25;i>=0;i--)
+        {
+            if(num[temp]==0){
+                temp++;
+            }
+            ans+=l[i]*temp;
+            num[temp]--;
+        }
+        return ans;
+    }
+};
+//67ms 25.06MB
