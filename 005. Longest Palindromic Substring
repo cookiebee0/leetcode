@@ -1,0 +1,48 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.empty())
+        return "";
+        string t=remix(s);
+
+        int n=t.size();
+        vector<int> p(n,0);
+        int center=0,right=0;
+        for(int i=0;i<n;i++)
+        {
+            int mirror=2*center-i;
+            if(i<right)
+            p[i]=min(right-i,p[mirror]);
+            while(i-p[i]-1>=0&&i+p[i]+1<n&&t[i-p[i]-1]==t[i+p[i]+1])
+            p[i]++;
+
+            if(p[i]+i>right)
+            {
+                center=i;
+                right=p[i]+i;
+            }
+        }
+        int ml=0,mc=0;
+        for(int i=0;i<n;i++)
+        {
+            if(p[i]>ml){
+                ml=p[i];
+                mc=i;
+            }
+        }
+
+        int start=(mc-ml)/2;
+        string ans=s.substr(start,ml);
+        return ans;
+    }
+    string remix(string s)
+    {
+        string t="^";
+        for(char i:s)
+        t+="#"+string(1,i);
+        t+="#$";
+        return t;
+    }
+};
+// 3ms 10.17MB
+// Manacher’s Algorithm
