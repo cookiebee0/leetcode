@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        long long sum=0;
+        int c=0,temp=1;
+        for(char& it:s)
+        {
+            if(c==0&sum==0&&it==' ')
+            continue;
+            else if(c==0&&(it=='+'||it=='-'))
+            {
+                if(it=='-')
+                temp=-1;
+                c=1;
+            }
+            else if(it>='0'&&it<='9')
+            {
+                c=1;
+                sum=sum*10+it-'0';
+            }
+            else if(it=='.')
+            {
+                it++;
+                if(it>='5'&&it<='9')
+                sum++;
+                else 
+                break;
+            }
+            else
+            break;
+            if(sum*temp>INT_MAX)
+            return INT_MAX;
+            if(sum*temp<INT_MIN)
+            return INT_MIN;
+        }
+        sum=sum*temp;
+        return sum;
+    }
+};
+//0ms 8.85MB
