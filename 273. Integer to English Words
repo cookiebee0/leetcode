@@ -1,0 +1,85 @@
+class Solution {
+public:
+        string n[20]={"","One","Two","Three","Four","Five","Six","Seven"
+                        ,"Eight","Nine","Ten","Eleven","Twelve","Thirteen"
+                        ,"Fourteen","Fifteen","Sixteen","Seventeen"
+                        ,"Eighteen","Nineteen"};
+    string numberToWords(int num) {
+        string answer="";
+        if(num==0)
+        {
+            answer="Zero";
+            return answer;
+        }
+        if(num>=1000000000)
+        {
+            int temp=num/1000000000;
+            num%=1000000000;
+            answer=u(temp,answer);
+            answer+=" Billion";
+        }
+        if(num>=1000000)
+        {
+            int temp=num/1000000;
+            num%=1000000;
+            answer=u(temp,answer);
+            answer+=" Million";
+        }
+        if(num>=1000)
+        {
+            int temp=num/1000;
+            num%=1000;
+            answer=u(temp,answer);
+            answer+=" Thousand";
+        }
+        if(num>0)
+        answer=u(num,answer);
+        answer.erase(0,1);
+        return answer;
+    }
+    string u(int num,string answer)
+    {
+        int a=num/100,b=num%100;
+        if(a!=0)
+        {
+            answer+=" "+n[a]+" Hundred";
+        }
+        if(b<20&&b!=0)
+        {
+            answer+=" "+n[b];
+        }
+        else
+        {
+            switch (b/10){
+                case 2:
+                answer+=" Twenty";
+                break;
+                case 3:
+                answer+=" Thirty";
+                break;
+                case 4:
+                answer+=" Forty";
+                break;
+                case 5:
+                answer+=" Fifty";
+                break;
+                case 6:
+                answer+=" Sixty";
+                break;
+                case 7:
+                answer+=" Seventy";
+                break;
+                case 8:
+                answer+=" Eighty";
+                break;
+                case 9:
+                answer+=" Ninety";
+                break;
+            }
+            if(b%10!=0)
+            answer+=" "+n[b%10];
+        }
+        return answer;
+    }
+};
+// 0ms 10.10MB
