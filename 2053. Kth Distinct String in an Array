@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string kthDistinct(vector<string>& arr, int k) {
+        unordered_map<string, int> m;
+        for (const auto c : arr)
+            m[c]++;
+        for (const auto c : arr) {
+            if (m[c] == 1 && --k == 0)
+                return c;
+        }
+        return "";
+    }
+};
+// 11ms 18.83MB
