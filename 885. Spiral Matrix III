@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int vis=rows*cols-1,ch=1;
+        vector<vector<int>> ans;
+        ans.push_back({rStart,cStart});
+        int num=1;
+        while(vis!=0)
+        {
+            for(int i=0;i<num;i++)
+            {
+                cStart+=ch;
+                if(cStart>=0&&cStart<cols&&rStart>=0&&rStart<rows&&vis>=0)
+                {
+                    ans.push_back({rStart,cStart});
+                    vis--;
+                }
+            }
+            for(int i=0;i<num;i++)
+            {
+                rStart+=ch;
+                if(cStart>=0&&cStart<cols&&rStart>=0&&rStart<rows&&vis>=0)
+                {
+                    ans.push_back({rStart,cStart});
+                    vis--;
+                }
+            }
+
+            num++;
+            ch*=-1;
+        }
+        return ans;
+    }
+};
+// 7ms 13.74MB
