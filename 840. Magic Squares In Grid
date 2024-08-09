@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+       if(grid.empty())
+       return 0;
+       int row= grid.size(),ans=0;
+       int col=grid[0].size();
+       for(int i=1;i<row-1;i++)
+       {
+            for(int j=1;j<col-1;j++)
+            {
+                if(grid[i][j]==5)
+                {
+                    if(grid[i-1][j-1]!=5)
+                    if(grid[i-1][j-1]+grid[i-1][j]+grid[i-1][j+1]==15&&grid[i-1][j-1]+grid[i][j-1]+grid[i+1][j-1]==15&&0<grid[i-1][j-1]&&grid[i-1][j-1]<10&&0<grid[i-1][j]&&grid[i-1][j]<10&&0<grid[i-1][j+1]&&grid[i-1][j+1]<10&&0<grid[i][j-1]&&grid[i][j-1]<10)
+                    {
+                        if(grid[i-1][j-1]+grid[i+1][j+1]==10&&grid[i-1][j+1]+grid[i+1][j-1]==10&&grid[i][j-1]+grid[i][j+1]==10&&grid[i-1][j]+grid[i+1][j]==10)
+                        
+                        ans++;
+                    }
+                }
+            }
+       }
+
+       return ans;
+    }
+};
+// 0ms 10.43MB
