@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        vector<int> str(26);
+        for (auto& i : magazine)
+            str[i - 'a']++;
+        for (auto& i : ransomNote) {
+            str[i - 'a']--;
+            if (str[i - 'a'] < 0)
+                return false;
+        }
+        return true;
+    }
+};
+// 6ms 10.30MB
