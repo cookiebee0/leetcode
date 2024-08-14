@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int m=accounts.size(),ans=0;
+        for(int i=0;i<m;i++)
+        {
+            int sum=0;
+            for(auto& it:accounts[i])
+            sum+=it;
+            ans=max(sum,ans);
+        }
+        return ans;
+    }
+};
+// 3ms 10.48MB
