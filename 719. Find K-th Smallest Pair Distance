@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int smallestDistancePair(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int l = 0, r = nums[nums.size() - 1] - nums[0], m;
+        while (r > l) {
+            m = l + (r - l) / 2;
+            if (count_pair(nums, m) >= k)
+                r = m;
+            else
+                l = m + 1;
+        }
+        return l;
+    }
+    int count_pair(vector<int>& nums, int m) {
+        int ans = 0, l = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            while (nums[i] - nums[l] > m && i > l)
+                l++;
+            ans += i - l;
+        }
+        return  ans;
+    }
+};
+// 6ms 12.80MB
