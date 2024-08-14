@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
+        vector<bool> ans;
+        vector<int> n;
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            if(nums[i]%2==nums[i+1]%2)
+            n.push_back(i+1);
+        }
+        for(int i=0;i<queries.size();i++)
+        {
+            int left = queries[i][0], right = queries[i][1];
+            auto temp=upper_bound(n.begin(),n.end(),left);
+            if(temp!=n.end()&& *temp<=right)
+            ans.push_back(false);
+            else
+            ans.push_back(true);
+        }
+        return ans;
+    }
+};
+// 189ms 125.71MB
