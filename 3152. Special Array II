@@ -21,3 +21,31 @@ public:
     }
 };
 // 189ms 125.71MB
+
+/*
+class Solution {
+public:
+    vector<bool> isArraySpecial(vector<int>& nums,
+                                vector<vector<int>>& queries) {
+        vector<bool> ans;
+        int s = nums.size();
+
+        vector<int> dp(s, 1);
+        for (int i = 1; i < s; i++) {
+            if (nums[i] % 2 != nums[i - 1] % 2) {
+                dp[i] = dp[i - 1] + 1;
+            }
+        }
+        for (int x = 0; x < queries.size(); x++) {
+            int left = queries[x][0];
+            int right = queries[x][1];
+            if (dp[right] - dp[left] == right - left)
+                ans.push_back(true);
+            else
+                ans.push_back(false);
+        }
+        return ans;
+    }
+};
+// 167ms 126.02MB
+*/
