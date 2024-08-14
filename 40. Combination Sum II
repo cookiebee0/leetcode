@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    int s;
+    void dfs(vector<int>& candidates, vector<int> temp, int i, int target,
+             int c) {
+        if (target == 0) {
+            ans.push_back(temp);
+            return;
+        }
+        if (i < s) {
+            if (candidates[i] <= target) {
+                temp.push_back(candidates[i]);
+                if (c != candidates[i])
+                    dfs(candidates, temp, i + 1, target - candidates[i], c);
+                temp.pop_back();
+                dfs(candidates, temp, i + 1, target, candidates[i]);
+            }
+            return ;
+        }
+        return ;
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<int> temp;
+        int i = 0, c = 0;
+        s = candidates.size();
+        vector<int> sc = candidates;
+        sort(sc.begin(), sc.end());
+        dfs(sc, temp, 0, target, 0);
+        return ans;
+    }
+};
+// 11ms 23.13MB
