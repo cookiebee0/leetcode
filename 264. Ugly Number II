@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> v(n + 1);
+        v[1] = 1;
+        int p2 = 1, p3 = 1, p5 = 1;
+        for (int i = 2; i <= n; i++) {
+            int num2 = v[p2] * 2, num3 = v[p3] * 3, num5 = v[p5] * 5;
+            v[i] = min(num2, min(num3, num5));
+            if (v[i] == num2)
+                p2++;
+            if (v[i] == num3)
+                p3++;
+            if (v[i] == num5)
+                p5++;
+        }
+        return v[n];
+    }
+};
+// 0ms 9.78MB
