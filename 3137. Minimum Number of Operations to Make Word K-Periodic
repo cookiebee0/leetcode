@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int minimumOperationsToMakeKPeriodic(string word, int k) {
+        map<string,int> m;
+        int s=word.size(),M=INT_MIN;
+        for(int i=0;i<s;i+=k)
+        {
+            string temp=word.substr(i,k);
+            m[temp]++;
+            M=max(M,m[temp]);
+        }
+        return s/k-M;
+    }
+};
+// 161ms 29.12MB
