@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool checkRecord(string s) {
+        int A=0,L=0;
+        for(auto& it: s)
+        {
+            if(it=='L')
+            L++;
+            else if(it=='A')
+            {
+                A++;
+                L=0;
+            }
+            else
+            L=0;
+            if(L==3||A==2)
+            return false;
+        }
+        return true;
+    }
+};
+// 3ms 7.80MB
