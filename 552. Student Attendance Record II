@@ -1,0 +1,23 @@
+const int MOD = 1e9 + 7;
+const int M = 100001;
+int mem[M][2][3];
+int dfs(int n, int i, int j) {
+    if (n == 0)
+        return 1;
+    int& temp = mem[n][i][j];
+    if (temp)
+        return temp;
+    temp = dfs(n - 1, i, 0);
+    if (i < 1)
+        temp = (temp + dfs(n - 1, i + 1, 0)) % MOD;
+    if (j < 2)
+        temp = (temp + dfs(n - 1, i, j + 1)) % MOD;
+    return temp;
+}
+class Solution {
+public:
+    int checkRecord(int n) {
+        return dfs(n, 0, 0);
+    }
+};
+// 3ms 15.42MB
