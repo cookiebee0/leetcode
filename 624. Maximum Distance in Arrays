@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxDistance(const vector<vector<int>>& arrays) {
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        int n = arrays.size(), mi = 1001, mi2 = 1001, ma = -1001, ma2 = -1001,
+            ans = -1, mii, mai;
+        for (int i = 0; i < n; i++) {
+            int m = arrays[i].size(), MM = arrays[i][m - 1], mm = arrays[i][0];
+            if (MM >= ma) {
+                mai = i;
+                ma2 = max(ma2, ma);
+                ma = MM;
+            } else {
+                ma2 = max(ma2, MM);
+            }
+            if (mi >= mm) {
+                mii = i;
+                mi2 = min(mi, mi2);
+                mi = mm;
+            } else
+                mi2 = min(mi2, mm);
+        }
+        if (mii == mai) {
+            ans = max(ma - mi2, ma2 - mi);
+        } else
+            ans = ma - mi;
+        return ans;
+    }
+};
+// 166ms 108.09MB
