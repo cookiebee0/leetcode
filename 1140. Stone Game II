@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int stoneGameII(vector<int>& piles) {
+        int n = piles.size();
+        partial_sum(piles.rbegin(), piles.rend(), piles.rbegin());
+
+        vector<vector<int>> memo(n, vector<int>((n + 1) / 4 + 1, -1));
+
+        function<int(int, int)> dfs = [&](int i, int m) -> int {
+            if (i + m * 2 >= n)
+                return piles[i];
+            int& res = memo[i][m];
+            if (res != -1)
+                return res;
+            int mn = INT_MAX;
+            for (int x = 1; x <= m * 2; ++x)
+                mn = min(mn, dfs(i + x, max(m, x)));
+            return res = piles[i] - mn;
+        };
+
+        return dfs(0, 1);
+    }
+};
+// 9ms 12.44MB
