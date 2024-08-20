@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int t0=0,t1=0;
+        for(int i:nums)
+        {
+            int nt = max(t1, t0 + i);
+            t0 = t1;
+            t1 = nt;
+        }
+        return t1;
+    }
+    
+};
+// 0ms 9.37MB
