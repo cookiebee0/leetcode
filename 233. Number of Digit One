@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countDigitOne(int n) {
+        int ans = 0;
+        for(long s = 1; n >= s; s *= 10) {
+            int h = n / (s * 10);
+            int l = n % s;
+            int c = n / s % 10;
+            if (c > 1)
+                ans += (h + 1) * s;
+            else if (c == 1)
+                ans += (h * s) + l + 1;
+            else 
+                ans += h * s;
+        }
+        return ans;
+    }
+};
+// 2ms 7.45MB
