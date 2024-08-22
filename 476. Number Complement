@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        long ans = 0;
+        long b = 1;
+        while (num != 0) {
+            if (num % 2 == 0) {
+                ans += b;
+            }
+            num /= 2;
+            b *= 2;
+        }
+        return ans;
+    }
+};
+// 0ms 7.57MB
