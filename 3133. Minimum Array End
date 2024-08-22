@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long minEnd(int n, int x) {
+        n--;
+        long long  b = 1, ans = 0;
+        while(1) {
+            
+            if(n == 0 && x == 0)
+            return ans;
+            if(x % 2)
+            {
+                ans += (b * (x % 2));
+            }
+            else {
+                ans += ((n % 2) * b);
+                n /= 2;
+            }
+            x /= 2;
+            b *= 2;
+        }
+    }
+};
+// 0ms 8.56MB
