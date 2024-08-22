@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        int i = 0, j = height.size() - 1, ans = 0;
+        while (i < j) {
+            ans = max(ans, (height[i] > height[j]) ? (j - i) * height[j--]
+                                                   : (j - i) * height[i++]);
+        }
+        return ans;
+    }
+};
+// 31ms 62.32MB
