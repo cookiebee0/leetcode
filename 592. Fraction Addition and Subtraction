@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string fractionAddition(string expression) {
+        int up = 0, down = 1;
+        int tu, td;
+        char tc;
+        stringstream ss(expression);
+        while (ss >> tu >> tc >> td) {
+            int g = __gcd(down, td);
+            up = up * td / g + tu * down / g;
+            down *= td / g;
+        }
+        int check = (up >= 0) ? 1 : -1;
+        up = abs(up);
+        int g = __gcd(up, down);
+        string ans = to_string(up / g * check) + "/" + to_string(down / g);
+        return ans;
+    }
+};
+// 0ms 7.78MB
