@@ -1,0 +1,57 @@
+class Solution {
+public:
+    string nearestPalindromic(string n) {
+        int l = n.size();
+        string st[5] = {n,"","","0","0"}; // 0, +1, -1, 10...01, 9...9
+        for(int i = 0, j = l - 1; i < j; i++, j--) {
+            st[0][j] = st[0][i];
+        }
+        st[1] = st[0];
+        st[2] = st[0];
+        if(st[0][l/2] != '9') {
+            st[1][l/2] = st[1][l/2] + 1;
+            if(l % 2 == 0)
+            st[1][l/2-1] = st[1][l/2-1] + 1;
+        }
+        if(st[0][l/2] != '0') {
+            st[2][l/2] = st[2][l/2] - 1;
+            if(l % 2 == 0)
+            st[2][l/2-1] = st[2][l/2-1] - 1;
+        }
+        else {
+            string temp = st[2].substr(0 , (l+1)/2);
+            cout<<"test  " <<temp<<endl;
+            st[2] = to_string(stoll(temp) - 1);
+            for(int i = 0, j = l - 1; i < j; i++, j--) {
+            st[2][j] = st[2][i];
+        }
+        }
+        for(int i = 0; i <= l; i++) {
+            if(i == 0 || i == l)
+            st[3] += '1';
+            else
+            st[3] += '0';
+        }
+        for(int i = 0; i < l - 1; i++) {
+            st[4] += '9';
+        }
+        for(auto it : st)
+        cout<< it << endl;
+        long long ch = LONG_MAX, temp;
+        int num = 0;
+        for(int i = 0; i < 5; i++) {
+            temp = abs(stoll(st[i]) - stoll(n));
+            if ( temp != 0 && temp < ch ) {
+                ch = temp;
+                num = i;
+            }
+            else if(temp == ch) {
+                if(stoll(st[num]) - stoll(st[i]) > 0)
+                num = i;
+            }
+        }
+        return to_string(stoll(st[num]));
+    }
+};
+// 0ms 8.56MB
+// tl t.3
