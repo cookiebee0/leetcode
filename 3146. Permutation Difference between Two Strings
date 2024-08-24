@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int findPermutationDifference(string s, string t) {
+        int n = s.size();
+        int m[26];
+        for(int i = 0; i < n; i++) {
+            m[s[i] - 'a'] = i;
+        }
+        int ans = 0;
+        for(int i = 0; i < n; i++) {
+            ans += abs(i - m[t[i] - 'a']);
+        }
+        return ans;
+    }
+};
+// 0ms 9.40MB
