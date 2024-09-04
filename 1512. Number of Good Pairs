@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& nums) {
+        int a[101]{};
+        int n = nums.size();
+        int ans = 0;
+        for(int x : nums) {
+            ans += a[x]++;
+        }
+        return ans;
+    }
+};
+// 0ms 8.95MB
