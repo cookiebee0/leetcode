@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        int l = 0, r = height.size() - 1;
+        int lm = height[l], rm = height[r];
+        int ans = 0;
+        while (l < r) {
+            if (lm > rm) {
+                ans += rm - height[r];
+                r--;
+                rm = max(rm, height[r]);
+            } else {
+                ans += lm - height[l];
+                l++;
+                lm = max(lm, height[l]);
+            }
+        }
+        return ans;
+    }
+};
+// 0ms 24.92MB
