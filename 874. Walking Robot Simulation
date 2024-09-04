@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
+        set<pair<int, int>> s;
+        int d[5] = {1, 0, -1, 0, 1};
+        for (auto it : obstacles) {
+            s.emplace(it[0], it[1]);
+        }
+        int x = 0, y = 0, ans = 0, w = 3;
+        for (auto it : commands) {
+            if (it > 0) {
+                for (int i = 0; i < it; i++) {
+                    int arrx = x + d[w], arry = y + d[w + 1];
+                    if (s.count({arrx, arry})) break;
+                    x = arrx;
+                    y = arry;
+                    ans = max(ans, x * x + y * y);
+                }
+            } 
+            else if (it == -1) w = (w + 1) % 4;
+            else if (it == -2) w = (w + 3) % 4;
+        }
+        return ans;
+    }
+};
+// 70ms 39.87MB
