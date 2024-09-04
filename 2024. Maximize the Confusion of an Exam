@@ -1,0 +1,72 @@
+class Solution {
+public:
+    int m = 0;
+    void lr_point0 (vector<int>& vc, int l, int r, int k, int& vs, int now) {
+        m = max(m, now + k);
+        if (r + 1 >= vs - 1)
+        return ;
+
+        if(vc[r + 1] <= k) {
+            now += vc[r + 1] + vc[r + 2];
+            k -= vc[r + 1];
+            lr_point0(vc, l, r + 2, k, vs, now);
+        }
+        else if(r > l) { 
+            k += vc[l + 1]; 
+            now -= (vc[l] + vc[l + 1]); 
+            lr_point0(vc, l + 2, r, k, vs, now);
+        }
+        else if(r == l){
+            now = vc[r + 2];
+            lr_point0(vc, l + 2, r + 2, k, vs, now);
+        }
+    }
+
+
+    int maxConsecutiveAnswers(string answerKey, int k) {
+        m = 0;
+        int con = 0, ss = answerKey.size();
+        char temp = answerKey[0];
+        vector<int> vc;
+        for (auto it : answerKey) {
+            if(temp == it) {
+                con ++;
+            }
+            else {
+                vc.push_back(con);
+                temp = it;
+                con = 1;
+            }
+        }
+        vc.push_back(con);
+
+        int vs = vc.size(), ans = 0;
+        if(vs == 1)
+        return vc[0];
+        lr_point0(vc, 0, 0, k ,vs, vc[0]);
+        lr_point0(vc, 1, 1, k ,vs, vc[1]);
+        return min(m, ss);
+    }
+};
+// 16ms 15.80MB
+
+/*
+class Solution {
+public:
+    int maxConsecutiveAnswers(string answerKey, int k) {
+        int l = 0, r = 0, t = 0, f = 0, s = answerKey.size();
+        int ans = 0;
+        for (; r < s; r++) {
+            if (answerKey[r] == 'T') t++;
+            else f++;
+            while (t > k && f > k) {
+                if(answerKey[l++] == 'T') t--;
+                else f--;
+            }
+            ans = max(ans, r - l + 1);
+        }
+        return ans;
+    }
+};
+// 20ms 11.52MB
+*/
