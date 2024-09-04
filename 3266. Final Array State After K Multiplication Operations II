@@ -1,0 +1,60 @@
+class Solution {
+public:
+    const long long mod = 1000000007;
+    long long pow_mod(long long a, int b) {
+        long long temp = 1;
+        for (; b; b /= 2) {
+            if (b % 2) {
+                temp = temp * a % mod;
+            }
+            a = a * a % mod;
+        }
+        return temp;
+    }
+    vector<int> getFinalState(vector<int>& nums, int k, int multiplier) {
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        if (multiplier == 1)
+            return nums; //
+        int n = nums.size();
+        priority_queue<pair<long long, int>, vector<pair<long long, int>>,
+                       greater<pair<long long, int>>>
+            q;
+        int m = 0;
+        for (int i = 0; i < n; i++) {
+            nums[i] %= mod;
+            m = max(m, nums[i]);
+            q.push({(long long)nums[i], i});
+        }
+        while (k) {
+
+            auto temp = q.top();
+            if (temp.first == m) {
+                break;
+            }
+            temp.first *= multiplier;
+            q.pop();
+            nums[temp.second] = temp.first;
+            q.push(temp);
+            k--;
+        }
+        int t = k / n;
+        long long p = pow_mod(multiplier, t);
+        k %= n;
+        for (int i = 0; i < n; i++) {
+            auto temp = q.top();
+            temp.first = temp.first % mod * p % mod;
+            if (k > 0)
+                temp.first = temp.first * multiplier;
+            temp.first %= mod;
+            q.pop();
+            nums[temp.second] = temp.first;
+            k--;
+        }
+
+        return nums;
+    }
+};
+// 126ms 55.79MB 
+// so hard qaq
