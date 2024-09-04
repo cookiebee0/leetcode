@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int chalkReplacer(vector<int>& chalk, int k) {
+        int n = chalk.size();
+        for(int i = 0; i < n - 1; i++) {
+            if(chalk[i] > k) return i;
+            chalk[i + 1] += chalk[i];
+        }
+        k %= chalk[n - 1];
+        return upper_bound(chalk.begin(), chalk.end(), k) - chalk.begin();
+    }
+};
+// 85ms 77.16MB
