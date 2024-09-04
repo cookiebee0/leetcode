@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        long long temp, ans;
+        while (k--) {
+            ans = 0;
+            for (auto it : s) {
+                if(it >= 'a')
+                temp = it - 'a' + 1;
+                else 
+                temp = it - '0';
+                while (temp != 0) {
+                    ans += temp % 10;
+                    temp /= 10;
+                }
+            }
+            s = to_string(ans);
+        }
+        return ans;
+    }
+};
+// 0ms 8.53MB
