@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int countPairs(vector<int>& nums) {
+        int n = nums.size(), ans = 0;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int ta = nums[i];
+                int tb = nums[j];
+                int c = 0, wa, wb;
+                while ((ta != 0) || (tb != 0)) {
+                    int ma = ta % 10, mb = tb % 10;
+                    if (ma != mb) {
+                        if (c == 0) {
+                            c = 1;
+                            wa = ma;
+                            wb = mb;
+                        } else if (c == 1) {
+                            if ((wa == mb) && (wb == ma))
+                                c++;
+                            else {
+                                c = 3;
+                                break;
+                            }
+                        } else {
+                            c++;
+                            break;
+                        }
+                    }
+                    ta /= 10;
+                    tb /= 10;
+                }
+                if (c == 0 || c == 2)
+                    ans++;
+            }
+        }
+        return ans;
+    }
+};
+// 0ms 23.66MB
