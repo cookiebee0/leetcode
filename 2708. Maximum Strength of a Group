@@ -1,0 +1,29 @@
+class Solution {
+public:
+    long long maxStrength(vector<int>& nums) {
+        int n = nums.size();
+        int i = 0, front_zero = 0;
+        while (i < n && nums[i] == 0) {
+            i++;
+            front_zero++;
+        }
+        if (i < n) {
+            long long ans = nums[i], temp = nums[i];
+            int c = temp < 0 ? temp : INT_MIN;
+            for (++i; i < n; i++) {
+                if (nums[i] != 0)
+                    temp *= nums[i];
+                if (nums[i] < 0)
+                    c = max(c, nums[i]);
+                ans = max(max(ans, (long long)nums[i]), temp);
+            }
+            if (front_zero)
+                ans = max(ans, 0LL);
+            if (temp < 0 && temp != c)
+                ans = max(ans, temp / c);
+            return ans;
+        } else
+            return 0;
+    }
+};
+// 3ms 51.98MB
