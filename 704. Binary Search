@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        if(nums[0] > target || nums.back() < target) return -1;
+        // if(nums.back() == target)
+        // return nums.size() - 1;
+        // //if(nums[0] == target) return 0;
+
+        // auto it = upper_bound(nums.begin(), nums.end(), target);
+        
+        // if(it == nums.end() || *(it - 1) != target) return -1;
+        // return it - nums.begin() - 1;
+        // 25ms 30.16MB
+        int l = 0, r = nums.size() - 1;
+        while(l < r) {
+            int mid = l + (r - l) / 2;
+            if(nums[mid] < target) {
+                l = mid + 1;
+            }
+            else r = mid;
+        }
+        return nums[l] == target ? l : -1;
+    }
+};
+// 21ms 30.25MB
