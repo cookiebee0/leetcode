@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+        int ans = 0;
+        sort(arr1.begin(), arr1.end());
+        sort(arr2.begin(), arr2.end());
+        auto left = arr2.begin();
+        for (auto i : arr1) {
+            if(left == arr2.end()) {
+                ans++;
+                continue;
+            }
+            left = upper_bound(left, arr2.end(), i - d - 1);
+            if (abs(*left - i) <= d)
+            continue;
+            ans++;
+        }
+        return ans;
+    }
+};
+// 0ms 16.09MB
