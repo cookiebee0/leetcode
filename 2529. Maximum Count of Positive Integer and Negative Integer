@@ -1,0 +1,9 @@
+class Solution {
+public:
+    int maximumCount(vector<int>& nums) {
+        auto positive = upper_bound(nums.begin(), nums.end(), 0);
+        auto negative = lower_bound(nums.begin(), positive, 0);
+        return max(nums.end() - positive, negative - nums.begin());
+    }
+};
+// 11ms 20.42MB
