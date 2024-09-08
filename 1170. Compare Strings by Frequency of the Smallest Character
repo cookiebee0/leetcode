@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        vector<int> w, ans;
+        for(string s : words) {
+            char temp = s[0];
+            int t = 1;
+            for (int i = 1; i < s.size(); i++) {
+                if(s[i] == temp)
+                t++;
+                else if(s[i] < temp) {
+                    temp = s[i]; 
+                    t = 1;
+                }
+            }
+            w.push_back(t);
+        }
+        sort(w.begin(), w.end());
+
+        for(string s : queries) {
+            char temp = s[0];
+            int t = 1;
+            for (int i = 1; i < s.size(); i++) {
+                if(s[i] == temp)
+                t++;
+                else if(s[i] < temp) {
+                    temp = s[i]; 
+                    t = 1;
+                }
+            }
+            ans.push_back(w.end() - upper_bound(w.begin(), w.end(), t));
+        }
+        return ans;
+    }
+};
+// 9ms 15.43MB
