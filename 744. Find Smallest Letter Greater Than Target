@@ -1,0 +1,28 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        if(letters.back() <= target) return letters[0];
+        int l = -1, r = letters.size() - 1;
+        while(l + 1 < r) {
+            int mid = l + (r - l) / 2;
+            if(letters[mid] <= target)
+            l = mid;
+            else 
+            r = mid;
+        }
+        return letters[l + 1];
+    }
+};
+// 4ms 19.85MB
+
+/*
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        if(letters.back() <= target) return letters[0];
+        return *upper_bound(letters.begin(), letters.end(), target);
+    }
+};
+
+// 9ms 19.62MB
+*/
