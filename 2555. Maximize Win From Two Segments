@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maximizeWin(vector<int>& prizePositions, int k) {
+        int right = 0, n = prizePositions.size(), ans = 0, temp = 0;
+        if (k * 2 + 2 >= prizePositions.back() - prizePositions[0] + 1) {
+            return n;
+        }
+        vector<int> m(n + 1, 0);
+        for (int left = 0; left < n; left++) {
+            if (left && prizePositions[left] == prizePositions[left - 1])
+                left++;
+
+            while (right + 1 < n &&
+                   prizePositions[right + 1] - prizePositions[left] <= k) {
+                temp = max(temp, right - left + 1);
+                m[right] = temp;
+                right++;
+            }
+            if (m[right] == 0) {
+                temp = max(temp, right - left + 1);
+                m[right] = temp;
+            }
+            ans = max(ans, right - left + 1 + (left == 0 ? 0 : m[left - 1]));
+        }
+        return ans;
+    }
+};
+// 65ms 58.07MB
