@@ -1,0 +1,43 @@
+class TimeMap {
+public:
+
+    unordered_map<string,vector<pair<int, string>>> m; 
+
+    TimeMap() {}
+    
+    void set(string key, string value, int timestamp) {
+        // m[key].emplace_back(timestamp, value);
+        m[key].push_back({timestamp, value});
+    }
+    
+    string get(string key, int timestamp) {
+        if(m.find(key) == m.end()) return "";
+        auto& ps = m[key];
+
+        // pair<int, string> p = {timestamp, string({127})};
+        // auto i = upper_bound(ps.begin(), ps.end(), p);
+        // if(i != ps.begin()) return (i - 1)->second;
+        // return "";
+
+        int left = 0, right = ps.size();
+        while(left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (ps[mid].first <= timestamp) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        if(ps[left].first > timestamp) return "";
+        return ps[left].second;
+    }
+};
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
+
+// 246ms 133.66MB
