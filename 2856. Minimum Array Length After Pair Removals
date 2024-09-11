@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minLengthAfterRemovals(vector<int>& nums) {
+        // map<int, int> m;
+        // int c = 0, n = nums.size();
+        // for(auto i : nums)
+        // c = max(c, ++m[i]);
+        // if(n - c > c)
+        // return n % 2;
+        // return n - (n - c) * 2;
+        // 194ms 169.29MB
+        int n = nums.size();
+        int x = nums[n/2];
+        int it = upper_bound(nums.begin(), nums.end(), x) - lower_bound(nums.begin(), nums.end(), x);
+        return  max(n % 2, it * 2 - n);
+    }
+};
+// 103ms 151.98MB
