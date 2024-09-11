@@ -1,0 +1,37 @@
+class Solution {
+public:
+    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+        sort(nums.begin(), nums.end());
+        long long ans = 0;
+        int n = nums.size();
+        int l = n, r = n;
+        for(int i = 0; i < n; i++) {
+            while(l && nums[l - 1] + nums[i] >= lower)
+            l--;
+            while(r && nums[r - 1] + nums[i] > upper)
+            r--;
+            ans += min(r, i) - min(l, i);
+        }
+        return ans;
+    }
+};
+// 115ms 60.63MB
+
+/*
+class Solution {
+public:
+    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+        sort(nums.begin(), nums.end());
+        long long ans = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            int it = nums[i];
+            auto left = lower_bound(nums.begin() + i + 1, nums.end(), lower - it);
+            auto right = upper_bound(left , nums.end(), upper - it);
+            ans += (right - left);
+
+        }
+        return ans;
+    }
+};
+// 137ms 60.33MB
+*/
