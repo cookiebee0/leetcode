@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int m = -1, mt = 1, t = 0;
+        for (auto &num : nums) {
+            if (num == m) {
+                t++;
+                mt = max(mt, t);
+            } else if (num > m) {
+                m = num;
+                t = 1;
+                mt = 1;
+            } else {
+                t = 0;
+            }
+        }
+        return mt;
+    }
+};
+// 100ms 84.89MB
