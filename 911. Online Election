@@ -1,0 +1,30 @@
+class TopVotedCandidate {
+public:
+    vector<int> who_win;
+    vector<int>& times;
+    TopVotedCandidate(vector<int>& persons, vector<int>& times) : times(times) {
+        int n = persons.size();
+        unordered_map<int, int> m;
+        int max_ticket = 0;
+        for (int i = 0; i < n; i++) {
+            if (++m[persons[i]] >= max_ticket) {
+                who_win.push_back(persons[i]);
+                max_ticket = max(max_ticket, m[persons[i]]);
+            } else {
+                who_win.push_back(who_win.back());
+            }
+        }
+    }
+
+    int q(int t) {
+        int temp = upper_bound(times.begin(), times.end(), t) - times.begin();
+        return who_win[temp - 1];
+    }
+};
+
+/**
+ * Your TopVotedCandidate object will be instantiated and called as such:
+ * TopVotedCandidate* obj = new TopVotedCandidate(persons, times);
+ * int param_1 = obj->q(t);
+ */
+ // 183ms 108.42MB
