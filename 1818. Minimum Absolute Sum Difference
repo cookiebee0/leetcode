@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int minAbsoluteSumDiff(vector<int>& nums1, vector<int>& nums2) {
+        const int mod = 1e9 + 7;
+        int m = 0, n = nums1.size();
+        int d = 0; // 節省
+        long long ans = 0;
+        vector<int> s(nums1);
+        sort(s.begin(), s.end());
+        for (int i = 0; i < n ; i++) {
+            int temp = abs(nums1[i] - nums2[i]);
+            if (temp == 0) continue;
+            ans = (ans + temp) % mod;
+            // right
+            auto right = upper_bound(s.begin(), s.end(), nums2[i]);
+            if(right != s.end()) {
+                d = max(d, temp - abs(*right - nums2[i]));
+            }
+            // left
+            if(right != s.begin()) {
+                auto left = right - 1;  
+                d = max(d, temp - abs(nums2[i] - *left));
+            }
+        }
+        ans = (ans + mod - d) % mod;
+        return ans;
+    }
+};
+// 119ms 67.79MB
