@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string removeStars(string s) {
+        // string ans = "";
+        // for (char &i : s) {
+        //     if (i == '*') {
+        //         ans.pop_back();
+        //     } else {
+        //         ans += i;
+        //     }
+        // }
+        // return ans;
+        int l = 0;
+        for (auto &i : s) {
+            if (i =='*') {
+                l--;
+            } else {
+                s[l++] = i;
+            }
+        }
+        return s.substr(0, l);
+    }
+};
+// 72ms 25.54MB
