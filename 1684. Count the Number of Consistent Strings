@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        int e[26]{};
+        for(char c : allowed) {
+            e[c - 'a'] = 1;
+        }
+        int ans = 0;
+        for(string& it : words) {
+            int check = 1;
+            for(char i : it){
+                if(e[i - 'a'] == 0) {
+                    check = 0;
+                    continue;
+                }
+            }
+            ans += check;
+        }
+        return ans;
+    }
+};
+// 41ms 33.67MB
