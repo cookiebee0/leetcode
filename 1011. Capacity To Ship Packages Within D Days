@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int n;
+    int shipWithinDays(vector<int>& weights, int days) {
+        this->n = weights.size();
+        int left = *max_element(weights.begin(), weights.end()) - 1, right = accumulate(weights.begin(), weights.end(), 0);
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            int temp = 0, ans = 1;
+            for (int i = 0; i < n; i++) {
+                temp += weights[i];
+                if (temp > mid) {
+                    ans++;
+                    temp = weights[i];
+                } 
+                if (ans > days) break;;
+            }
+            if (ans > days)
+                left = mid;
+            else 
+                right = mid;
+        }
+        return right;
+    }
+    // bool check(vector<int>& weights, int& day, int& mid) {
+    //     int temp = 0, ans = 1;
+    //     for (int i = 0; i < n; i++) {
+    //         temp += weights[i];
+    //         if (temp > mid) {
+    //             ans++;
+    //             temp = weights[i];
+    //         } 
+    //         if (ans > day) return false;
+    //     }
+    //     return true;
+    // }
+};
+// 39ms 33.81MB
