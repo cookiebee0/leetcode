@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numberOfPoints(vector<vector<int>>& nums) {
+        map<int, int> m;
+        for (auto it : nums) {
+            m[it[0]] = max(m[it[0]], it[1]);
+            // cout << it[0] << " " << it[1] << endl;
+        }
+        int ans = 0, b = 0;
+        for (auto it : m) {
+            // cout << it.first << " " << it.second << endl;
+            if (it.first <= b) {
+                ans += max(it.second - b, 0);
+                b = max(b, it.second);
+            } else {
+                b = it.second;
+                ans += it.second - it.first + 1;
+            }
+        }
+        return ans;
+    }
+};
+// 8ms 29.92ms
