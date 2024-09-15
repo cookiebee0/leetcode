@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findTheLongestSubstring(string s) {
+        vector<int> c(32, INT_MAX);
+        c[0] = -1;
+        int n = s.size();
+        int a = 0;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            switch (s[i]) {
+                case 'a' : 
+                a ^= 1;
+                break;
+                case 'e' : 
+                a ^= 2;
+                break;
+                case 'i' : 
+                a ^= 4;
+                break;
+                case 'o' : 
+                a ^= 8;
+                break;
+                case 'u' : 
+                a ^= 16;
+                break;
+            }
+            if (c[a] == INT_MAX) c[a] = i;
+            else {
+                ans = max(ans, i - c[a]);
+            }
+        }
+        return ans;
+    }
+};
+// 38ms 17.71MB
