@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minSpeedOnTime(vector<int>& dist, double hour) {
+        int left = 0, right = 1e7 + 1;
+        int n = dist.size();
+        long long hr = llround(hour * 100);
+        if (hr <= (n - 1) * 100) return -1;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            long long t = 0;
+            for (int i = 0; i < n - 1; i++) {
+                t += (dist[i] - 1) / mid + 1;
+            }
+            // (t + (dist[n-1] / mid)) * 100  <->  hr
+            t *= mid;
+            t += dist[n - 1];
+
+            if (t * 100 <= hr * mid)
+                right = mid;
+            else 
+                left = mid;
+        }
+        return right;
+    }
+};
+// 161ms 104.27MB
