@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int l = 0, r = *max_element(bloomDay.begin(), bloomDay.end()) + 1, n = bloomDay.size();
+        if ((long long)n < (long long)m * k) return -1;
+        while (l + 1 < r) {
+            int mid = l + (r - l) / 2;
+            int con = 0, f = 0;
+            for (auto& i : bloomDay) {
+                if (i <= mid) {
+                    if (++con >= k) {
+                        con -= k;
+                        f++;
+                    }
+                } else {
+                    con = 0;
+                }
+                if (f >= m) break;
+            }
+            if (f >= m) r = mid;
+            else l = mid;
+        }
+        return r;
+    }
+};
+// 108ms 69.33MB
