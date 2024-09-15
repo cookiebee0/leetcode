@@ -1,0 +1,18 @@
+class Solution {
+public:
+    long long repairCars(vector<int>& ranks, int cars) {
+        long long l = 0, r = LONG_MAX;
+        while (l + 1 < r) {
+            long long  m = l + (r - l) / 2;
+            long long c = 0;
+            for (auto i : ranks) {
+                c += (long long)sqrt(m / i);
+                if (c >= cars) break;
+            }
+            if (c >= cars) r = m;
+            else l = m;
+        }
+        return r;
+    }
+};
+// 42ms 58.26MB
