@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int distanceBetweenBusStops(vector<int>& distance, int start, int destination) {
+        // int right = 0, left = 0;
+        // int n = distance.size();
+        // if (destination < start) swap(start, destination);
+        // for (int i = 0; i < n; i++) {
+        //     if (start <= i && i < destination) right += distance[i];
+        //     else left += distance[i];
+        // }
+        // return min(left, right);
+        partial_sum(distance.begin(), distance.end(), distance.begin());
+        if (destination < start) swap(start, destination);
+        int temp = abs(distance[destination - 1] - (start == 0 ? 0 : distance[start - 1]));
+        return min(distance.back() - temp, temp);
+    }
+};
+// 0ms 11.36MB
