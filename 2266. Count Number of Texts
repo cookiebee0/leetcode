@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int countTexts(string pressedKeys) {
+        // 7 & 9 -> 4times
+        long long ans = 1;
+        long long MOD = 1e9 + 7;
+        int n = pressedKeys.size();
+        vector<long long> t4(max(n + 1, 4), 0);
+        vector<long long> t3(max(n + 1, 4), 0);
+        t4[0] = t3[0] = 1;
+        t4[1] = t3[1] = 1;
+        t4[2] = t3[2] = 2;
+        t4[3] = t3[3] = 4;
+
+        for (int i = 4; i <= n; i++) {
+            t3[i] = t3[i - 1] + t3[i - 2] + t3[i - 3];
+            t4[i] = t4[i - 1] + t4[i - 2] + t4[i - 3] + t4[i - 4];
+            t3[i] %= MOD;
+            t4[i] %= MOD;
+        }
+        int temp = pressedKeys[0], cnt = 1;
+        if (n != 1)
+        for (int i = 1; i < n; i++) {
+            if (pressedKeys[i] == temp) cnt++;
+            else {
+                if(temp == '7' || temp == '9') {
+                    ans *= t4[cnt] ;
+                } else {
+                    ans *= t3[cnt] ;
+                }
+                ans %= MOD;
+                temp = pressedKeys[i];
+                cnt = 1;
+            }
+        }
+        if(temp == '7' || temp == '9') {
+            ans *= t4[cnt] ;
+        } else {
+            ans *= t3[cnt] ;
+        }
+        ans %= MOD;
+        return ans;
+    }
+};
+// 32ms 28.35MB
