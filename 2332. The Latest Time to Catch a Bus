@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int latestTimeCatchTheBus(vector<int>& buses, vector<int>& passengers, int capacity) {
+        sort(buses.begin(), buses.end());
+        sort(passengers.begin(), passengers.end());
+
+        int i = 0, c;
+        for (int t : buses) {
+            for (c = capacity; c && i < passengers.size() && passengers[i] <= t; c--) {
+                i++;
+            }
+        }
+        i--;
+        int ans = c ? buses.back() : passengers[i];
+        while (i >= 0 && ans == passengers[i]) {
+            i--;
+            ans--;
+        } 
+        return ans;
+    }
+};
+// 126ms 80.56MB
