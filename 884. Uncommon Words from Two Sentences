@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        int l = 0;
+        unordered_map<string, int> m;
+        stringstream ss;
+        ss << s1 << " " << s2;
+        string temp;
+        while (ss >> temp) 
+        m[temp]++;
+
+        vector<string> ans;
+        for (auto& i : m) {
+            if (i.second == 1)
+            ans.push_back(i.first);
+        }
+        return ans;
+    }
+};
+// 0ms 8.88MB
