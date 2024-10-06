@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestContinuousSubstring(string s) {
+        int n = s.size();
+        if (n <= 1) return n;
+        char t = '0';
+        int ans = 1;
+        int m = 1;
+        for (auto &i : s) {
+            if (++t == i) {
+                ans = max(ans, ++m);
+            } else {
+                t = i;
+                m = 1;
+            }
+        }
+        return ans;
+    }
+};
+// 35ms 16.91MB
