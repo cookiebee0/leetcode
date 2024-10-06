@@ -1,0 +1,18 @@
+class Solution {
+public:
+    long long maximumSubsequenceCount(string text, string pattern) {
+        long long ans = 0;
+        int f = 0, e = 0;
+        for (auto i : text) {
+            if (i == pattern[1]) {
+                e++;
+                ans += f;
+            }
+            if (i == pattern[0]) {
+                f++;
+            }
+        }
+        return ans + max(f, e);
+    }
+};
+// 44ms 18.64MB
