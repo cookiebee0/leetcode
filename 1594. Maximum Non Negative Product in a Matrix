@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int maxProductPath(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        const int MOD = 1e9 + 7;
+        vector<long long> maxans(n + 1, 0);
+        vector<long long> minans(n + 1, 0);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0) {
+                    if (j == 0) {
+                        maxans[j] = grid[i][j];
+                        minans[j] = grid[i][j];
+                    } else {
+                        maxans[j] = maxans[j - 1] * grid[i][j];
+                        minans[j] = minans[j - 1] * grid[i][j];
+                    }
+                } else if (j == 0) {
+                    maxans[j] *= grid[i][j];
+                    minans[j] *= grid[i][j];
+                } else {
+                    if (grid[i][j] >= 0) {
+                        maxans[j] = max(maxans[j - 1], maxans[j]) * grid[i][j];
+                        minans[j] = min(minans[j - 1], minans[j]) * grid[i][j];
+                    } else {
+                        long long temp = maxans[j];
+                        maxans[j] = min(minans[j - 1], minans[j]) * grid[i][j];
+                        minans[j] = max(maxans[j - 1], temp) * grid[i][j];
+                    }
+                }
+            }
+        }
+        if (maxans[n - 1] < 0) {
+            return -1;
+        } else return maxans[n - 1] % MOD;
+    }
+};
+// 2ms 12.82MB
