@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int ans = INT_MIN;
+        int temp = 1, t0 = 1;
+        for (auto &i : nums) {
+            // temp
+            if (temp == 0) {
+                temp = i;
+                t0 = 1;
+            } else {
+                temp *= i;
+            }
+            // ans
+            ans = max({ans, temp, temp / t0});
+            // t0
+            if (t0 == 1 && temp < 0) t0 = temp;
+        }
+        return ans;
+    }
+};
+// 3ms 16.66MB
