@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char, int> m;
+        int r = s1.size(), temp = 0;
+        int n = s2.size();
+        if (r > n) return false;
+        for (int i = 0; i < r; i++) {
+            if (m[s1[i]]-- == 0) temp++;
+            else if (m[s1[i]] == 0) temp--;
+            if (++m[s2[i]] == 0) temp--;
+            else if (m[s2[i]] == 1) temp++;
+        }
+        if (temp == 0) return true;
+        int l = 0;
+        for (; r < n; r++, l++) {
+            if (--m[s2[l]] == 0) temp--;
+            else if (m[s2[l]] == -1) temp++;
+            if (++m[s2[r]] == 0) temp--;
+            else if (m[s2[r]] == 1) temp++;
+            
+            if (temp == 0) return true;
+        }
+        return false;
+    }
+};
+// 9ms 10.00MB
