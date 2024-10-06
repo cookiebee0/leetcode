@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> pathsWithMaxScore(vector<string>& board) {
+        int n = board.size();
+        const int MOD = 1e9 + 7;
+        vector<vector<pair<int, int>>> v(n, vector<pair<int, int>>(n, {0, 0}));
+        v[0][0] = {0, 1};
+        for (int i = 1; i < n; i++) {
+            if (board[0][i] > '0' && board[0][i] <= '9') {
+                int num = board[0][i] - '0';
+                if (v[0][i - 1].second)
+                v[0][i] = {v[0][i - 1].first + num, v[0][i - 1].second};
+            }
+            if (board[i][0] > '0' && board[i][0] <= '9') {
+                int num = board[i][0] - '0';
+                if (v[i - 1][0].second)
+                v[i][0] = {v[i - 1][0].first + num, v[i - 1][0].second};
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < n; j++) {
+                if (board[i][j] == 'X') continue;
+                int num;
+                if (board[i][j] == 'S') num = 0;
+                else {
+                    num = board[i][j] - '0';
+                }
+                int t = max({v[i - 1][j - 1].first, v[i - 1][j].first, v[i][j - 1].first});
+                int time = 0;
+                if (v[i - 1][j - 1].first == t) {
+                    time += v[i - 1][j - 1].second;
+                }
+                if (v[i][j - 1].first == t) {
+                    time += v[i][j - 1].second;
+                }
+                if (v[i - 1][j].first == t) {
+                    time += v[i - 1][j].second;
+                }
+                if (time != 0)
+                v[i][j] = {t + num, time % MOD};
+            }
+        }
+        return {v[n - 1][n - 1].first, v[n - 1][n - 1].second};
+    }
+};
+// 3ms 10.61MB
