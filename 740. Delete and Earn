@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        map<int, int> m;
+        for (auto i : nums)
+            m[i]++;
+        if (m.size() == 1)
+            return nums[0] * nums.size();
+        int pre2 = 0, pre1 = 0;
+        int prekey = -1;
+        for (const auto& i : m) {
+            int temp = pre1;
+            if (i.first == prekey + 1) {
+                pre1 = max(pre1, i.second * i.first + pre2);
+            } else {
+                pre1 = i.first * i.second + max(pre1, pre2);
+            }
+            prekey = i.first;
+            pre2 = temp;
+        }
+        return pre1;
+    }
+};
+// 11ms 16.54MB
