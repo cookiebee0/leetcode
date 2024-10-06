@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        unordered_map<int, int> m;
+        int n = nums.size();
+        int ans = n;
+        int rm = accumulate(nums.begin(), nums.end(), 0LL) % p;
+        if (rm == 0) return 0;
+
+        m[0] = -1;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum = (sum + nums[i]) % p;
+            m[sum] = i;
+            // find
+            int temp = sum - rm;
+            if (temp < 0) temp += p;
+            
+            if (m.count(temp))
+            ans = min(ans, i - m[temp]);
+        }
+        return ans == n ? -1 : ans;
+    }
+};
+// 126ms 70.42MB
