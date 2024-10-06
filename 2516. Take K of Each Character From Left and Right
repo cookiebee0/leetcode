@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int takeCharacters(string s, int k) {
+        int n = s.size();
+        if (n < 3 * k) return -1;
+        vector<int> e(3, 0);
+        for (auto i : s) {
+            e[i - 'a']++;
+        }
+        for (auto i : e) {
+            if (i < k) return -1;
+        }
+        int left = 0, ans = INT_MAX;
+        for (int right = 0; right < n; right++) {
+            e[s[right] - 'a']--;
+            while(e[s[right] - 'a'] < k) {
+                e[s[left] - 'a']++;
+                left++;
+            }
+            ans = min(ans, n - (right - left + 1));
+        }
+        return ans;
+    }
+};
+// 23ms 12.20MB
