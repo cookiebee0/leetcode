@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int n = days.back();
+        unordered_set s(days.begin(), days.end());
+
+        // vector<int> memo(n + 1);
+        // auto dfs = [&] (auto&& dfs, int i) -> int {
+        //     if (i <= 0) return 0;
+        //     int &res = memo[i];
+        //     if (res) return res;
+        //     if (!s.count(i)) {
+        //         return dfs(dfs, i - 1);
+        //     }
+        //     return res = min({dfs(dfs, i - 1) + costs[0], dfs(dfs, i - 7) + costs[1], dfs(dfs, i - 30) + costs[2]});
+        // };
+
+        // return dfs(dfs, n);
+
+        vector<int> f(n + 1, 0);
+        for (int i = 1; i <= n; i++) {
+            if (s.count(i))
+            f[i] = min({f[i - 1] + costs[0], f[max(i - 7, 0)] + costs[1], f[max(i - 30, 0)] + costs[2]});
+            else f[i] = f[i - 1];
+        }
+        return f[n];
+    }
+};
+// 3ms 12.50MB
