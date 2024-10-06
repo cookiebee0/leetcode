@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> sumPrefixScores(vector<string>& words) {
+        struct Node {
+            Node *e[26]{};
+            int score = 0;
+        };
+        Node *root = new Node();
+        for (auto &s : words) {
+            auto temp = root;
+            for (auto c : s) {
+                c -= 'a';
+                if (temp->e[c] == nullptr) temp->e[c] = new Node();
+                temp = temp->e[c];
+                temp->score++;
+            }
+        }
+
+        int n = words.size();
+        vector<int> ans(n);
+        for (int i = 0; i < n; i++) {
+            auto temp = root;
+            for (char &c : words[i]) {
+                temp = temp->e[c - 'a'];
+                ans[i] += temp->score;
+            }
+        }
+        return ans;
+    }
+};
+// 560ms 704.12MB
