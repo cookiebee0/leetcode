@@ -1,0 +1,23 @@
+class MyCalendar {
+public:
+    set<pair<int,int>> m;
+    MyCalendar() {
+    }
+    
+    bool book(int start, int end) { 
+        auto i = m.lower_bound({end, 0});
+        if (i == m.begin() || (--i) -> second <= start) {
+            m.emplace(start, end);
+            return true;
+        }
+        return false;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
+
+// 59ms 52.80MB
