@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canArrange(vector<int>& arr, int k) {
+        for (auto &i : arr) 
+            i = (i % k + k) % k;
+        sort(arr.begin(), arr.end());
+        int r = arr.size() - 1, l = 0;
+
+        while (l + 1 < r && arr[l + 1] == 0) l += 2;
+        
+        while (r > l) 
+            if (((arr[r--] + arr[l++]) % k) != 0) return false;
+        
+        return true;
+    }
+};
+// 102ms 64.06MB
