@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long distinctNames(vector<string>& ideas) {
+        unordered_set<string> g[26];
+
+        for (auto i : ideas) {
+            g[i[0] - 'a'].insert(i.substr(1));
+        }
+
+        long long ans = 0;
+        for (int a = 1; a < 26; a++) {
+            for (int b = 0; b < a; b++) {
+                int m = 0; 
+                for (auto &s : g[a]) {
+                    m += g[b].count(s);
+                }
+                ans += (long long) (g[a].size() - m) * (g[b].size() - m);
+            }
+        }
+        return ans * 2;
+    }
+};
+// 316ms 87.67MB
