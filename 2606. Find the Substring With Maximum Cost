@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maximumCostSubstring(string s, string chars, vector<int>& vals) {
+        int e[26]{};
+        for (int i = 0; i < 26; i++) {
+            e[i] = i + 1;
+        }
+        for (int i = 0; i < chars.size(); i++) {
+            e[chars[i] - 'a'] = vals[i];
+        }
+        int ans = 0, temp = 0;
+        for (int i = 0; i < s.size(); i++) {
+            int x = e[s[i] - 'a'] + temp;
+            if(x >= 0) {
+                temp = x;
+                ans = max(ans, temp);
+            }
+            else temp = 0;
+        }
+        return ans;
+    }
+};
+// 21ms 26.84MB
