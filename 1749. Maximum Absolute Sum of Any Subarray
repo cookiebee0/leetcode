@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        int ans = abs(nums[0]);
+        int temp1 = nums[0];
+        int temp0 = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            if (temp1 > 0 && temp1 + nums[i] > 0) {
+                temp1 += nums[i];
+            } else {
+                temp1 = nums[i];
+            }
+            ans = max(ans, temp1);
+            if (temp0 < 0 && temp0 + nums[i] < 0) {
+                temp0 += nums[i];
+            } else {
+                temp0 = nums[i];
+            }
+            ans = max(ans, temp0 * -1);
+        }
+        return ans;
+    }
+};
+// 39ms 43.88MB
