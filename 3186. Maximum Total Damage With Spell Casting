@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long long maximumTotalDamage(vector<int>& power) {
+        unordered_map<int, int> cnt;
+        for (int i : power) {
+            cnt[i]++;
+        }
+
+        vector<pair<int, int>> a(cnt.begin(), cnt.end());
+        sort(a.begin(), a.end());
+
+        int n = cnt.size();
+        vector<long long> dp(n + 1);
+        for (int i = 0, j = 0; i < n; i++) {
+            auto& [f, s] = a[i];
+            while (a[j].first < f - 2) {
+                j++;
+            }
+            dp[i + 1] = max(dp[i], dp[j] + (long long) f * s);
+        }
+        return dp[n];
+    }
+};
+// 410ms 195.52MB
