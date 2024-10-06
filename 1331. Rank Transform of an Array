@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> arrayRankTransform(vector<int>& arr) {
+        int n = arr.size();
+        vector<pair<int, int>> temp;
+        int t = 0;
+        for (auto &i : arr) {
+            temp.emplace_back(i, t++);
+        }
+        sort(temp.begin(), temp.end());
+        t = 0;
+        int check = INT_MAX;
+        for (auto it = temp.begin(); it < temp.end(); it++) {
+            if (it->first != check) {
+                t++;
+                check = it->first;
+            }
+            arr[it->second] = t;
+        }
+        return arr;
+    }
+};
+// 45ms 39.04MB
