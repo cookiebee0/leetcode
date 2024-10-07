@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minLength(string s) {
+        stack<char> st;
+        st.push(' ');
+        int ans = 0;
+        for (auto& i : s) {
+            if ((i == 'D' && st.top() == 'C') || (i == 'B' && st.top() == 'A')) {
+                st.pop();
+                ans--;
+                continue;
+            }
+            st.push(i);
+            ans++;
+        }
+        return ans;
+    }
+};
+// 3ms 11.84MB
