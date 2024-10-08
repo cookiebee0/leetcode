@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minSwaps(string s) {
+        int cnt = 0;
+        int ans = 0;
+        for (auto &i : s) {
+            if(i == '[') {
+                cnt++;
+            } else {
+                if (cnt) cnt--;
+                else {
+                    ans++;
+                }
+            }
+        }
+        return (ans + 1) / 2;
+    }
+};
+// 95ms 32.72MB
