@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string destCity(vector<vector<string>>& paths) {
+        for (auto &i : paths) {
+            int c = 0;
+            for (auto &j : paths) {
+                if (i[1] == j[0]) {
+                    c = 1;
+                    break;
+                }
+            }
+            if (c == 0) return i[1];
+        }
+        return "";
+    }
+};
+// 3ms 13.86MB
