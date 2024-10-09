@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int ans = 0;
+        int temp = 0;
+        for (auto &i : s) 
+        {
+            if (i == ')') {
+                if (temp == 0) ans++;
+                else {
+                    temp--;
+                }
+            }
+            else {
+                temp++;
+            }
+        }
+        return ans + temp;
+    }
+};
+// 0ms 7.63MB
