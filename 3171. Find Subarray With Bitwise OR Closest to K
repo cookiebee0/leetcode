@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums, int k) {
+        int temp = 0, n = nums.size(), ans = INT_MAX;
+        int b[30]{};
+        int l = 0, i = 0;
+        for (int r = 0; r < n; r++) {
+            int num = nums[r];
+            i = 0;
+            while (num) {
+                if (num % 2) {
+                    if (b[i]++ == 0) {
+                        temp += pow(2, i);
+                    }
+                }
+                i++;
+                num /= 2;
+            }
+            ans = min(ans, abs(temp - k));
+            while (temp > k && r > l) {
+                i = 0;
+                num = nums[l++];
+                while (num) {
+                    if (num % 2) {
+                        if (--b[i] == 0) {
+                            temp -= pow(2, i);
+                        }
+                    }
+                    i++;
+                    num /= 2;
+                }
+                ans = min(ans, abs(temp - k));
+            }
+        }
+        return ans;
+    }
+};
+// 247ms 95.72MB
