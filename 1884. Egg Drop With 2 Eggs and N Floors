@@ -1,0 +1,31 @@
+class Solution {
+    // sol 1. and 2.
+    // int memo[1001];
+public:
+    int twoEggDrop(int n) {
+        // // sol 1.
+        // if (n == 0) return 0;
+        // int &temp = memo[n];
+        // if (temp) return temp;
+        // temp = INT_MAX;
+        // for (int i = 1; i <= n; i++) {
+        //     temp = min(temp, max(i, twoEggDrop(n - i) + 1));
+        // }
+        // return temp;
+
+        // // sol 2.
+        // for (int i = 1; i <= n; i++) {
+        //     memo[i] = INT_MAX;
+        //     for (int j = 1; j <= i; j++) {
+        //         memo[i] = min(memo[i], max(j, memo[i - j] + 1));
+        //     }
+        // }
+        // return memo[n];
+
+        // sol 3.
+        // x * (x + 1) / 2 >= n
+        // x >= ((8n + 1) ^ (1 / 2) - 1) / 2
+        return ceil((sqrt(8 * n + 1) - 1) / 2);
+    }
+};
+// 0ms 7.53MB
