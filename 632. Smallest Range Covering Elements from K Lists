@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        multimap<int, int> m;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            for (auto& it : nums[i]) {
+                m.emplace(it, i);
+            }
+        }
+        vector<int> temp(n, 0);
+        int cnt = 0;
+        auto left = m.begin(), right = m.begin();
+        int ansleft = 0, ansright = INT_MAX;
+        for (; right != m.end(); right++) {
+            int t = right->first;
+            if (temp[right->second]++ == 0)
+                cnt++;
+            // if (next(right) != m.end() && next(right)->first == t) {
+            //     continue;
+            // }
+            while (cnt == n) {
+                if (right->first - left->first < ansright - ansleft) {
+                    ansleft = left->first;
+                    ansright = right->first;
+                }
+
+                if (--temp[left->second] == 0)
+                    cnt--;
+                ++left;
+            }
+        }
+        return {ansleft, ansright};
+    }
+};
+// 52ms 27.12MB
