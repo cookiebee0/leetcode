@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int duplicateNumbersXOR(vector<int>& nums) {
+        unordered_set<int> m;
+        int ans = 0;
+        for (auto &i : nums) {
+            if (m.count(i)) ans ^= i;
+            else m.emplace(i);
+        }
+        return ans;
+    }
+};
+// 7ms 28.20MB
