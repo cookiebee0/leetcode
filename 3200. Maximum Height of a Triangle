@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxHeightOfTriangle(int red, int blue) {
+        if (blue > red) swap(red, blue);
+        int a = 0, b = 0, i = 0;
+        while (red >= a && blue >= b) {
+            swap(a, b);
+            a += ++i;
+        }
+        return i - 1;
+    }
+};
+// 0ms 8.34MB
