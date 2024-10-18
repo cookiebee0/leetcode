@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string s = to_string(num);
+        int n = s.length();
+        int mi = n - 1;
+        int p = -1, q;
+        for (int i = n - 2; i >= 0; i--) {
+            if (s[i] > s[mi]) {
+                mi = i;
+            } else if (s[i] < s[mi]) {
+                p = i;
+                q = mi; 
+            }
+        }
+        if (p == -1) {
+            return num;
+        }
+        swap(s[p], s[q]);
+        return stoi(s);
+    }
+};
+// 0ms 7.45MB
