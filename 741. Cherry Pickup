@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<vector<int>>> memo(2 * n - 1, vector<vector<int>> (n, vector<int> (n, -1)));
+        auto dp = [&](auto& dp, int i, int j, int k) -> int {
+            if (j < 0 || k < 0 || i < j || i < k || grid[i - j][j] < 0 || grid[i - k][k] < 0) return INT_MIN;
+            if (i == 0) {
+                return grid[0][0];
+            }
+            int &temp = memo[i][j][k];
+            if (temp != -1) return temp;
+            return temp = max({dp(dp, i - 1, j - 1, k), dp(dp, i - 1, j - 1, k - 1), dp(dp, i - 1, j, k - 1), dp(dp, i - 1, j, k)}) + grid[i - j][j] + (k != j ? grid[i - k][k] : 0);
+        };
+        return max(dp(dp, 2 * n - 2, n - 1, n - 1), 0);                   
+    }
+};
+// 55ms 41.12MB
