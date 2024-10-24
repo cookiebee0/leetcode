@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int ans = 0;
+    int n;
+    void re(int i, int t, string &s, unordered_set<string>& us) {
+        if (i >= n) {
+            ans = max(ans, t);
+        } else {
+            for (int j = i; j < n; j++) {
+                string temp = s.substr(i, j - i + 1);
+                if (us.find(temp) == us.end()) {
+                    us.insert(temp);
+                    re(j + 1, t + 1, s, us);
+                    us.erase(temp);
+                }
+            }
+        }
+    }
+    int maxUniqueSplit(string s) {
+        this->n = s.size();
+        ans = 1;
+        unordered_set<string> us;
+        re(0, 0, s, us);
+        return ans;
+    }
+};
+// 220ms 47.77MB
