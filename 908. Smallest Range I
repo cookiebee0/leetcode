@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int smallestRangeI(vector<int>& nums, int k) {
+        int m = INT_MAX, M = INT_MIN;
+        for (auto &i : nums) {
+            m = min(m, i);
+            M = max(M, i);
+        }
+        return max(0, M - m - 2 * k);
+        // sort(nums.begin(), nums.end());
+        // return max(0, nums.back() - nums[0] - 2 * k);
+    }
+};
+// 0ms 17.89MB
