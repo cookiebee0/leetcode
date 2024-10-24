@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int findWinningPlayer(vector<int>& skills, int k) {
+        if (k == 1) return skills[0] > skills[1] ? 0 : 1;
+        int m = max_element(skills.begin(), skills.end()) - skills.begin();
+        int ans = 0, cnt = 0;
+        for (int i = 1; i <= m; i++) {
+            if (skills[i] > skills[ans]) {
+                cnt = 1;
+                ans = i;
+            } else {
+                if (++cnt == k) return ans;
+            }
+        }
+        return ans;
+    }
+};
+// 4ms 119.63MB
