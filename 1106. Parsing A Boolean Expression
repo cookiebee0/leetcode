@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool parseBoolExpr(string e) {
+        stack<char> s;
+        for (int i = 0; i < e.size(); i++) {
+            char it = e[i];
+            if (it == ')') {
+                int t = 0, f = 0;
+                while (s.top() != '(') {
+                    if (s.top() == 't') t++;
+                    else if (s.top() == 'f') f++;
+                    s.pop();
+                }
+                s.pop();
+                char c = s.top();
+                s.pop();
+                switch(c) {
+                    case '|' :
+                    s.push(t ? 't' : 'f');
+                    break;
+                    case '&' :
+                    s.push(f ? 'f' : 't');
+                    break;
+                    case '!' :
+                    s.push(t ? 'f' : 't');
+                    break;
+                }
+            } else if (it != ',') {
+                s.push(it);
+            }
+        }
+        return s.top() == 't' ? true : false;
+    }
+};
+// 4ms 9.77MB
