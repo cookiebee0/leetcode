@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int countCompleteDayPairs(vector<int>& hours) {
+        // for (auto &i : hours) {
+        //     i %= 24;
+        // }
+        // sort(hours.begin(), hours.end());
+        // int l = 0, r = hours.size() - 1;
+        // while (l < r + 1 && hours[l] == 0) {
+        //     l++;
+        // }
+        // int ans = l * (l - 1) / 2;
+        // while (l < r) {
+        //     if (hours[l] + hours[r] > 24) {
+        //         r--;
+        //     } else if (hours[l] + hours[r] < 24) {
+        //         l++;
+        //     } else if (hours[l] + hours[r] == 24){
+        //         if (hours[l] == 12) {
+        //             return ans + (r - l + 1) * (r - l) / 2;
+        //         }
+        //         int ll = 1, rr = 1;
+        //         while (hours[l] == hours[l + 1]) {
+        //             l++;
+        //             ll++;
+        //         }
+        //         while (hours[r] == hours[r - 1]) {
+        //             r--;
+        //             rr++;
+        //         }
+        //         ans += ll * rr;
+        //         l++;
+        //         r--;
+        //     }
+        // }
+        // return ans;
+        int h[24]{};
+        int ans = 0;
+        for (int &i : hours) {
+            i %= 24;
+            ans += h[(24 - i) % 24];
+            h[i]++;
+        }
+        return ans;
+    }
+};
+// 0ms 23.51MB
