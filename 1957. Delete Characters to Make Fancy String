@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string makeFancyString(string s) {
+        int n = s.size();
+        if (n <= 2) return s;
+        string ans = "";
+        int t = 0;
+        for (int i = 0; i < n; i++) {
+            if (i - t < 2) {
+                if (s[t] != s[i]) t = i;
+            } else if (s[t] != s[i]) t = i;
+            else continue;
+            ans += s[i];
+        }
+        return ans;
+    }
+};
+// 23ms 42.81MB
