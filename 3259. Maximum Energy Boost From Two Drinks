@@ -1,0 +1,17 @@
+class Solution {
+public:
+    long long maxEnergyBoost(vector<int>& energyDrinkA, vector<int>& energyDrinkB) {
+        int n = energyDrinkA.size();
+        vector<long long> fa(n), fb(n);
+        fa[0] = energyDrinkA[0];
+        fb[0] = energyDrinkB[0];
+        fa[1] = fa[0] + energyDrinkA[1];
+        fb[1] = fb[0] + energyDrinkB[1];
+        for (int i = 2; i < n; i++) {
+            fa[i] = max(fa[i - 1], fb[i - 2]) + energyDrinkA[i];
+            fb[i] = max(fb[i - 1], fa[i - 2]) + energyDrinkB[i];
+        }
+        return max(fa[n - 1], fb[n - 1]);
+    }
+};
+// 8ms 211.04MB
