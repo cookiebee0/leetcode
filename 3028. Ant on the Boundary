@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int returnToBoundaryCount(vector<int>& nums) {
+        int t = 0, ans = 0;
+        for (auto &i : nums) {
+            t += i;
+            if (t == 0) ans++;
+        }
+        return ans;
+    }
+};
+// 4ms 22.81MB
