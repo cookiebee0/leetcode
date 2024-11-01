@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<string> ans;
+    int n;
+    void dfs (string temp, int s, int check) {
+        if (s == n) {
+            ans.push_back(temp);
+        } else {
+            if (check) {
+                dfs(temp + "0", s + 1, 0);
+                dfs(temp + "1", s + 1, 1);
+            } else {
+                dfs(temp + "1", s + 1, 1);
+            }
+        }
+    }
+    vector<string> validStrings(int n) {
+        this->n = n;
+        dfs("", 0, 1);
+        return ans;
+    }
+};
+// 15ms 29.98MB
