@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> resultsArray(vector<int>& nums, int k) {
+        int n = nums.size();
+        int r = 1, temp = 0;
+        vector<int> ans;
+        for (; r < min(k, n); r++) {
+            if (nums[r] - 1 == nums[r - 1]) temp++;
+        }
+        if (temp == k - 1) ans.push_back(nums[r - 1]);
+        else ans.push_back(-1);
+        for (int l = 1; r < n; r++, l++) {
+            if (nums[l] - 1 == nums[l - 1]) temp--;
+            if (nums[r] - 1 == nums[r - 1]) temp++;
+            if (temp == k - 1) ans.push_back(nums[r]);
+            else ans.push_back(-1);
+        }
+        return ans;
+    }
+};
+// 0ms 33.19MB
