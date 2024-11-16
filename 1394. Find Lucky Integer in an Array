@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        int ans = -1, n = arr.size();
+        sort(arr.begin(), arr.end());
+        for (int i = 0; i < n; i++) {
+            int t = arr[i];
+            int temp = 1;
+            while (i + 1 < n && arr[i + 1] == t) {
+                temp++;
+                i++;
+            }
+            if (temp == t) ans = t;
+        }
+        return ans;
+    }
+};
+// 0ms 13.09MB
