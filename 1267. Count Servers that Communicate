@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countServers(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        int ans = 0;
+        for (auto &it: grid) {
+            int sum = accumulate(it.begin(), it.end(), 0);
+            if (sum > 1) ans += sum;
+            for (auto &i: it) {
+                if (i == 1 && sum > 1) i = -1;
+            }
+        }
+        
+        for (int i = 0; i < m; i++) {
+            int check = 0, sum = 0; 
+            for (int j = 0; j < n; j++) {
+                if(grid[j][i] == 1) {
+                    sum++;
+                    check++;
+                } else if (grid[j][i] == -1) check++;
+            }
+            if (check > 1) ans += sum;
+        } 
+        return ans;
+    }
+};
+// 0ms 25.94MB
