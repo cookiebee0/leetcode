@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> maximumBeauty(vector<vector<int>>& items, vector<int>& queries) {
+        sort(items.begin(), items.end());
+        
+        int temp = items[0][1];
+        for (auto& i: items) {
+            temp = max(temp, i[1]);
+            i[1] = temp;
+        }
+
+        for (auto& i: queries) {
+            i = binary_search(items, i);
+        }
+        
+        return queries;
+    }
+    
+    int binary_search(vector<vector<int>>& items, int price) {
+        int left = 0, right = items.size();
+
+        if (price < items[0][0]) return 0;
+        while(left < right - 1) {
+            int mid = (right - left) / 2 + left;
+            if (price >= items[mid][0]) left = mid;
+            else right = mid;
+        }
+        return items[left][1];
+    }
+};
+// 51ms 92.11MB
