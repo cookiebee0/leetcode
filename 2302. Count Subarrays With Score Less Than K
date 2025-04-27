@@ -1,0 +1,17 @@
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, long long k) {
+        int l = 0, n = nums.size();
+        long long ans = 0, temp = 0;
+        for (int r = 0; r < n; r++){
+            int x = nums[r];
+            temp += x;
+            while (l <= r && temp * (r - l + 1) >= k){
+                temp -= nums[l++];
+            }
+            ans += r - l + 1;
+        }
+        return ans;
+    }
+};
+// 0ms 98.82MB
