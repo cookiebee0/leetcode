@@ -23,3 +23,27 @@ public:
     }
 };
 // 0ms 93.92MB
+
+/*
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        long long ans = 0;
+        int min_b = -1, max_b = -1, l = -1;
+        for (int r = 0; r < nums.size(); r++) {
+            if (nums[r] > maxK || nums[r] < minK) {
+                l = r;
+            } else {
+                if (nums[r] == maxK) {
+                    max_b = r;
+                } 
+                if (nums[r] == minK) {
+                    min_b = r;
+                }
+                ans += max(min(min_b, max_b) - l, 0);
+            }
+        }
+        return ans;
+    }
+};
+*/
