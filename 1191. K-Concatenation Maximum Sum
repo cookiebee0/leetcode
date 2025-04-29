@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int kConcatenationMaxSum(vector<int>& arr, int k) {
+        int n = arr.size();
+        int m = 0, t = k != 1, temp = 0, sum = 0;
+        for (; t >= 0; t--) {
+            for (auto &i : arr) {
+                if (t == 0) sum += i;
+                temp += i;
+                if (temp < 0) temp = 0;
+                else m = max(m, temp);
+            }
+        }
+        if (k == 1) return m;
+        int mod = 1e9 + 7;
+        long long time = k - 2;
+
+        if (sum > 0) m = (m + sum * time) % mod;
+        return m;
+    }
+};
