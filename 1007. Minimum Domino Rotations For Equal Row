@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+        int n = tops.size();
+        int ans = 0, temp = 0, check = 0;
+        int x = tops[0];
+        for (int i = 0; i < n; i++) {
+            if (tops[i] == x && bottoms[i] == x) temp++;
+            if (tops[i] == x) continue;
+            else if (bottoms[i] == x) ans++;
+            else {
+                check = 1;
+                break;
+            }
+        }
+        if (check == 0) return min(ans, n - ans - temp);
+        check = 0;
+        x = bottoms[0];
+        ans = 0;
+        temp = 0;
+        for (int i = 0; i < n; i++) {
+            if (tops[i] == x && bottoms[i] == x) temp++;
+            if (bottoms[i] == x) continue;
+            else if (tops[i] == x) ans++;
+            else {
+                check = 1;
+                break;
+            }
+        }
+        if (check == 0) return min(ans, n - ans - temp);
+        return -1;
+    }
+};
+// 0ms 115.43MB
