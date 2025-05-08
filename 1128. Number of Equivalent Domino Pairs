@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numEquivDominoPairs(vector<vector<int>>& dominoes) {
+        int d[10][10] = {};
+        int ans = 0;
+        for (auto &i : dominoes) {
+            if (i[0] > i[1]) {
+                ans += d[i[1]][i[0]]++;
+            } else {
+                ans += d[i[0]][i[1]]++;
+            }
+        }
+        return ans;
+    }
+};
+// 0ms 26.18MB
