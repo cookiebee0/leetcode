@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> findEvenNumbers(vector<int>& digits) {
+        vector<int> ans;
+        int cnt[10]{};
+        for (auto& i : digits) cnt[i]++;
+
+        auto dfs = [&](this auto&& dfs, int temp, int i) -> void {
+            if (i == 3) {
+                ans.push_back(temp);
+                return;
+            }
+            for (int d = 0; d < 10; d++) {
+                if (cnt[d] > 0 && ((i == 0 && d > 0) || (i == 1) || (i == 2 && d % 2 == 0))) {
+                    cnt[d]--;
+                    dfs(temp * 10 + d, i + 1);
+                    cnt[d]++;
+                }
+            }
+        };
+        dfs(0, 0);
+        return ans;
+    }
+};
+// 3ms 12.55MB
