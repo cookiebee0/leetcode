@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long minSum(vector<int>& nums1, vector<int>& nums2) {
+        long long sum1 = 0, sum2 = 0;
+        int  cnt1 = 0, cnt2 = 0;
+        for (auto& i : nums1) {
+            if (i == 0) {
+                cnt1++;
+                sum1++;
+                continue;
+            }
+            sum1 += i;
+        }
+        for (auto& i : nums2) {
+            if (i == 0) {
+                cnt2++;
+                sum2++;
+                continue;
+            }
+            sum2 += i;
+        }
+        if (sum1 > sum2) {
+            if (cnt2 == 0) return -1;
+            return sum1;
+        }
+        if (sum2 > sum1 && cnt1 == 0) return -1;
+        return sum2;
+    }
+};
+// 130ms 135.42MB
