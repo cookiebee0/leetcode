@@ -1,0 +1,54 @@
+class Solution {
+public:
+    static const int mod = 1e9 + 7;
+    static const int S = 26;
+    using matrix = array<array<int, S>, S>;
+
+    matrix pow(matrix m, int t) {
+        matrix temp = {};
+        for (int i = 0; i < S; i++) {
+            temp[i][i] = 1;
+        }
+        while (t) {
+            if (t % 2) temp = mul(temp, m); //
+
+            m = mul(m, m);
+            t /= 2;
+        }
+        return temp;
+    }
+    
+    matrix mul(matrix& a, matrix& b) {
+        matrix c{};
+        for (int i = 0; i < S; i++) {
+            for (int k = 0; k < S; k++) {
+                for (int j = 0; j < S; j++) {
+                    c[i][j] = (c[i][j] + (long long)a[i][k] * b[k][j]) % mod;
+                }
+            }
+        }
+        return c;
+    }
+    int lengthAfterTransformations(string s, int t, vector<int>& nums) {
+        matrix m{};
+        for (int i = 0; i < S; i++) {
+            for (int j = 1; j <= nums[i]; j++) {
+                m[i][(i + j) % S] = 1;
+            }
+        }
+
+        matrix mt = pow(m, t); //
+
+        int cnt[S]{};
+        for (char& c : s) cnt[c - 'a']++;
+
+        long long ans = 0;
+        for (int i = 0; i < S; i++) {
+            for (int j = 0; j < S; j++) {
+                ans = (ans + (long long)mt[i][j] * cnt[i]);
+            }
+        }
+        return ans % mod;
+    }
+};
+// 174MB 25.52MB
