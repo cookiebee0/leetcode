@@ -1,0 +1,61 @@
+vector<long long> ans[10];
+const int max_n = 30;
+
+bool is_mir(long long x, int k) {
+    if (x % k == 0) return false;
+    long long rev = 0;
+    while (rev < x / k) {
+        rev = rev * k + x % k;
+        x /= k;
+    }
+    return (x == rev) || (rev == x / k);
+}
+
+bool is_pos(long long x) {
+    bool flag = true;
+    for (int k = 2; k < 10; k++) {
+        if (ans[k].size() < max_n && is_mir(x, k)) {
+            ans[k].push_back(x);
+        }
+        if (ans[k].size() < max_n) {
+            flag = false;
+        }
+    }
+    if (!flag) return false;
+
+    for (int i = 2; i < 10; i++) {
+        // 前綴和
+        partial_sum(ans[i].begin(), ans[i].end(), ans[i].begin());
+    }
+    return true;
+}
+
+// 預處理
+auto init = []() {
+    for (int base = 1; ; base *= 10) {
+        // 奇數位數 base = 10 -> 101 ~ 999
+        for (int i = base; i < base * 10; i++) {
+            long long x = i;
+            for (int t = i / 10; t != 0; t /= 10) {
+                x = x * 10 + t % 10;
+            }
+            if (is_pos(x)) return 0;
+        }
+        // 偶數位數 base = 10 -> 1001 ~ 9999
+        for (int i = base; i < base * 10; i++) {
+            long long x = i;
+            for (int t = i; t != 0; t /= 10) {
+                x = x * 10 + t % 10;
+            }
+            if (is_pos(x)) return 0;
+        }
+    }
+}();
+
+class Solution {
+public:
+    long long kMirror(int k, int n) {
+        return ans[k][n - 1];
+    }
+};
+// 0ms 8.19MB
