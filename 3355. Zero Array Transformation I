@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        int n = nums.size();
+        vector<int> t(n + 1);
+        for (auto& q : queries) {
+            t[q[0]]++;
+            t[q[1] + 1]--;
+        }
+        int temp = 0;
+        for (int i = 0; i < n; i++) {
+            temp += t[i];
+            if (temp < nums[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+// 5ms 292.80MB
