@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int differenceOfSums(int n, int m) {
+        // int ans = n * (n + 1) / 2;
+        // for (int i = m; i <= n; i += m) {
+        //     ans -= i * 2;
+        // }
+        // return ans;
+        return n * (n + 1) / 2 - (n / m + 1) * (n / m) * m;
+    }
+};
+// 0ms 8.34MB
