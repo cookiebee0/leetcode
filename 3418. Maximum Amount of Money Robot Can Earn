@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int maximumAmount(vector<vector<int>>& coins) {
+        int m = coins.size(), n = coins[0].size();
+        // dp 空間優化
+        vector f(n + 1, array<int, 3> {INT_MIN / 2, INT_MIN / 2, INT_MIN / 2});
+        f[1] = {0, 0, 0};
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) { 
+                int x = coins[i][j];
+                f[j + 1][2] = max({f[j + 1][2] + x, f[j + 1][1], f[j][1], f[j][2] + x});
+                f[j + 1][1] = max({f[j + 1][1] + x, f[j + 1][0], f[j][0], f[j][1] + x});
+                f[j + 1][0] = max({f[j + 1][0], f[j][0]}) + x;
+            }
+        }
+        return f[n][2];
+
+        // dp
+        // vector f(m + 1, vector(n + 1, array<int, 3> {INT_MIN / 2, INT_MIN / 2, INT_MIN / 2}));
+        // f[0][1] = {0, 0, 0};
+        // for (int i = 0; i < m; i++) {
+        //     for (int j = 0; j < n; j++) {
+        //         int x = coins[i][j];
+        //         f[i + 1][j + 1][0] = max(f[i + 1][j][0], f[i][j + 1][0]) + x;
+        //         f[i + 1][j + 1][1] = max({f[i + 1][j][0], f[i][j + 1][0], f[i + 1][j][1] + x, f[i][j + 1][1] + x});
+        //         f[i + 1][j + 1][2] = max({f[i + 1][j][1], f[i][j + 1][1], f[i + 1][j][2] + x, f[i][j + 1][2] + x});
+        //     }
+        // }
+        // return f[m][n][2];
+
+        // dfs
+        // vector mem(m, vector(n, array<int, 3>{INT_MIN, INT_MIN, INT_MIN}));
+        // auto dfs = [&](this auto& dfs, int i, int j, int k) -> int {
+        //     if (i < 0 || j < 0) return INT_MIN;
+
+        //     int x = coins[i][j];
+        //     if (i == 0 && j == 0) return k ? max(0, x) : x;
+
+        //     int& res = mem[i][j][k];
+        //     if (res != INT_MIN) return res;
+
+        //     res = max(dfs(i - 1, j, k), dfs(i, j - 1, k)) + x;
+
+        //     if (x < 0 && k) res = max({res, dfs(i - 1, j, k - 1), dfs(i, j - 1, k - 1)});
+        //     return res;
+        // };
+        // return dfs(m - 1, n - 1, 2);
+    }
+};
+/*
+auto dfs = [&](this auto& dfs, ...) -> int {
+    ...
+};
+*/
+
+// 76ms 105.74MB
