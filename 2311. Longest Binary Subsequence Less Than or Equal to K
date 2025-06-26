@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int longestSubsequence(string s, int k) {
+        int n = s.size(), ans = 0, temp = 1, now = 0, i;
+        for (i = n - 1; i >= 0; i--) {
+            if (temp + now > k) {
+                break;
+            }
+            if (s[i] == '1') now += temp;
+            ans++;
+            temp *= 2;
+        }
+        for (; i >= 0; i--) ans += s[i] == '0';
+        return ans;
+    }
+};
+// 0ms 9.34MB
