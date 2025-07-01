@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findLHS(vector<int>& nums) {
+        // unordered_map<int, int> um;
+        // for (int& i : nums) um[i]++;
+        // int ans = 0;
+        // for (auto& [x, y] : um) {
+        //     if (um.contains(x + 1)) {
+        //         ans = max(ans, y + um[x + 1]);
+        //     }
+        // }
+        // return ans;
+        ranges::sort(nums);
+        int cnt = 0, ans = 0, num = INT_MIN, pre_cnt = 0;
+        for (auto& i : nums) {
+            if (i == num) {
+                cnt++;
+                if (pre_cnt != 0)
+                ans = max(ans, cnt + pre_cnt);
+            } else if (i - 1 == num) {
+                pre_cnt = cnt;
+                num = i;
+                cnt = 1;
+                if (pre_cnt != 0)
+                ans = max(ans, cnt + pre_cnt);
+            } else {
+                pre_cnt = 0;
+                cnt = 1;
+                num = i;
+            }
+        }
+        return ans;
+    }
+};
+// 15ms 36.28MB
