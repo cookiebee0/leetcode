@@ -1,0 +1,31 @@
+const int MOD = 1e9 + 7;
+const int mx = 1e5;
+int pw[mx];
+
+auto init = []{
+    pw[0] = 1;
+    for (int i = 1; i < mx; i++) {
+        pw[i] = pw[i - 1] * 2 % MOD;
+    }
+    return 0;
+}();
+class Solution {
+public:
+    int numSubseq(vector<int>& nums, int target) {
+        ranges::sort(nums);
+        int l = 0, r = nums.size() - 1;
+        long long ans = 0;
+        // 用最小值去找最大值
+        while (l <= r) { // 最大最小可同一個
+            if (nums[l] + nums[r] <= target) {
+                // 從最小值到最大值之中包含最大值都是可選/可不選的 2 ^ n (預處理)
+                ans += pw[r - l]; 
+                l++;
+            } else {
+                r--; // nums[r] 太大
+            }
+        }
+        return ans % MOD;
+    }
+};
+// 31ms 51.90MB
