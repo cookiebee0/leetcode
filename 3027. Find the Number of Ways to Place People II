@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numberOfPairs(vector<vector<int>>& points) {
+        ranges::sort(points, {}, [](auto& p) { return pair(p[0], -p[1]); });
+        int ans = 0, n = points.size();
+        for (int i = 0; i < n; i++) {
+            int y = INT_MIN, now = points[i][1];
+            for (int j = i + 1; j < n && y < now; j++) {
+                int temp = points[j][1];
+                if (temp > y && now >= temp) {
+                    y = temp;
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
+// 114ms 41.2MB
