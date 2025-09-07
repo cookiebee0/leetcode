@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int makeTheIntegerZero(int num1, int num2) {
+        // let x = num1 - num2 * k
+        //      find k
+        // x = 2^i + 2^i ...
+        // k = [x.bit_count, x]
+        for (long long k = 1; k <= num1 - num2 * k ; k++) { // k <= x
+            // long long x = num1 - num2 * k;
+            // if (x < k) {
+            //     return -1;
+            // }
+            if (k >= popcount((uint64_t)num1 - num2 * k)) {
+                return k;
+            }
+        }
+        return -1;
+    }
+};
+// 0ms 8.18MB
