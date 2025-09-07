@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> getNoZeroIntegers(int n) {
+        int ans = 0, base = 1; // 10^k
+        for (int x = n; x > 1; x /= 10, base *= 10) {
+            int tmp = x % 10;
+            if (tmp <= 1) {
+                tmp += 10;
+                x -= 10;
+            }
+            ans += tmp / 2 * base;
+        }
+        return {ans, n - ans};
+    }
+};
+// 0ms 8.18MB
