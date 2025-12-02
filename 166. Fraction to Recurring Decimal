@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string fractionToDecimal(int num, int d) {
+        long long denominator = d, numerator = num;
+        long long ans_f = numerator / denominator;
+        long long temp = numerator % denominator;
+        string ans = to_string(ans_f) + ".";
+        if (ans_f == 0 && (numerator < 0 ^ denominator < 0)) ans = "-" + ans;
+        if (denominator < 0) denominator *= -1;
+        if (temp == 0) return to_string(ans_f);
+        if (temp < 0) temp *= -1;
+        string ans_b = "";
+        unordered_map<int, int> um;
+        int cnt = 0;
+        while (temp != 0 && !um.count(temp)) {
+            um[temp] = cnt++;
+            ans_b += (temp * 10 / denominator) + '0';
+            temp = temp * 10 % denominator;
+        }
+        // cout << ans_b;
+        if (temp == 0) {
+            return to_string(ans_f) + "." + ans_b;
+        }
+        string ans_temp = ans_b;
+        for (int i = 0; i < ans_temp.size(); i++) {
+            if (i == um[temp]) {
+                ans += '(';
+            }
+            ans += ans_temp[i];
+        }
+        return ans + ')';
+    }
+};
+// 0ms 8.64MB
