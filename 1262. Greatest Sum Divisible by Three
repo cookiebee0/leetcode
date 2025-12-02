@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        int ans = 0, m11 = 1001, m12 = 1001, m21 = 1001, m22 = 1001;
+        for (auto& i : nums) {
+            ans += i;
+            if (i % 3 == 1) {
+                if (i < m11) {
+                    m12 = m11;
+                    m11 = i;
+                } else if (i < m12) {
+                    m12 = i;
+                }
+            } else if (i % 3 == 2) {
+                if (i < m21) {
+                    m22 = m21;
+                    m21 = i;
+                } else if (i < m22) {
+                    m22 = i;
+                }
+            }
+        }
+        int t = ans % 3;
+        if (t == 0) return ans;
+        else if (t == 1) {
+            t = min(m11, m21 + m22);
+            ans -= t;
+            return (ans < 0) ? 0 : ans;
+        } else {
+            t = min(m21, m11 + m12);
+            ans -= t;
+            return (ans < 0) ? 0 : ans;
+        }
+        return 0;
+    }
+};
+// 4ms 28.66MB
