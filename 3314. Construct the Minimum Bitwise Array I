@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        vector<int> tmp(1001, -1), ans;
+        for (int i = 0; i < 1000 ; i++) {
+            int temp = i | (i + 1);
+            // cout << temp << " " << i << endl;
+            if (temp < 1000 && tmp[temp] == -1) tmp[temp] = i;
+        }
+        for (auto& i : nums) {
+            ans.push_back(tmp[i]);
+        }
+        return ans;
+    }
+};
+// 0ms 28.94MB

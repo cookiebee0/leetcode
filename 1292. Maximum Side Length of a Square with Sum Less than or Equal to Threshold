@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxSideLength(vector<vector<int>>& mat, int threshold) {
+        int m = mat.size(), n = mat[0].size();
+        for (int i = 0; i < m; i++) {
+            int left = 0;
+            for (int j = 0; j < n; j++) {
+                int up = i == 0 ? 0 : mat[i - 1][j];
+                left += mat[i][j];
+                mat[i][j] = up + left;
+                // cout << mat[i][j] << " " ;
+            }
+            // cout << endl;
+        }
+        int ma = max(m, n);
+        for (int t = 1; t <= ma; t++) {
+            int chk = 1;
+            for (int i = t - 1; i < m; i++) {
+                for (int j = t - 1; j < n; j++) {
+                    int tmp = mat[i][j];
+                    if (i - t >= 0) tmp -= mat[i - t][j];
+                    if (j - t >= 0) tmp -= mat[i][j - t];
+                    if ((i - t) >= 0 && (j - t) >= 0) tmp += mat[i - t][j - t];
+                    if (tmp <= threshold) {
+                        chk = 0;
+                        break;
+                    }
+                }
+                if (chk == 0) break;
+            }
+            if (chk) return t - 1;
+        }
+        return ma;
+    }
+};
+// 0ms 29.70MB
