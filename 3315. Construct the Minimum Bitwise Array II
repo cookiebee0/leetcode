@@ -1,0 +1,47 @@
+class Solution {
+public:
+    /*
+    100111  - 100011 | 100100  
+    100101  - 100100 | 100101
+    101111  - 100111 | 101000
+    111111  - 11111  | 100000
+
+    1011  -  1001 | 1010
+    ___
+    47
+    101111 - 100111 + 101000
+    */
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        for (auto& num: nums) {
+            // if (num == 2) {
+            //     num = -1;
+            //     continue;
+            // }
+            int i = num, base = 1, tmp, ans = 0;
+            while (i > 2) {
+                tmp = i / 2 % 2;
+                if (tmp == 0) { 
+                    ans -= base;
+                    while(i > 0) {
+                        ans += base * (i % 2);
+                        base *= 2;
+                        i /= 2;
+                    }
+                    break;
+                } else { 
+                    ans += base;
+                    base *= 2;
+                    i /= 2;
+                }
+            }
+            // cout << ans << " ";
+            if ((ans + 1 | ans) == num) num = ans;
+            // else if ((num - 2 | num) == num) num -= 2;
+            // else if ((num - 1 | num) == num) num -= 1;
+            else num = -1;
+            
+        }
+        return nums;
+    }
+};
+// 0ms 28.31MB
