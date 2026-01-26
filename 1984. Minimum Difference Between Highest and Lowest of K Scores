@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums, int k) {
+        ranges::sort(nums);
+        int ans = INT_MAX, n = nums.size();
+        for (int l = 0; l + k - 1 < n; l++) {
+            ans = min(nums[l + k - 1] - nums[l], ans);
+        }
+        return ans;
+    }
+};
+// 0ms 17.16MB
