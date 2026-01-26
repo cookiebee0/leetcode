@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        ranges::sort(nums);
+        int r = nums.size() - 1, ans = 0;
+        for (int l = 0; l < r; l++, r--) {
+            ans = max(nums[l] + nums[r], ans);
+        }
+        return ans;
+    }
+};
+// 169ms 100.00MB
