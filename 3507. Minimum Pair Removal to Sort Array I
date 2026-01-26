@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int minimumPairRemoval(vector<int>& nums) {
+        int n = nums.size();
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq; // 相鄰兩數之和, 左下標
+        int dec = 0; // 幾組遞減(不符合)
+        
+        for (int i = 0; i < n - 1; i++) {
+            int x = nums[i], y = nums[i + 1];
+            if (x > y) dec++;
+            pq.emplace(x + y, i);
+        }
+        // 相鄰(左、右)未刪除下標 
+        vector<int> left(n + 1), right(n);
+        ranges::iota(left, -1);
+        ranges::iota(right, 1);
+
+        vector<int> a(nums.begin(), nums.end());
+        int ans = 0;
+        while (dec) {
+            ans++;
+
+            while (right[pq.top().second] >= n || pq.top().first != a[pq.top().second] + a[right[pq.top().second]]) pq.pop();
+            auto [sum, i] = pq.top();
+            pq.pop();
+            // update(now, next)
+            int nxt = right[i];
+            dec -= a[i] > a[nxt]; 
+            // update(pre, now)
+            int pre = left[i];
+            if (pre >= 0) {
+                dec -= a[pre] > a[i];
+                dec += a[pre] > sum;
+                pq.emplace(a[pre] + sum, pre);
+            }
+            // update(next, next next)
+            int nxt2 = right[nxt];
+            if (nxt2 < n) {
+                dec -= a[nxt] > a[nxt2];
+                dec += sum > a[nxt2];
+                pq.emplace(sum + a[nxt2], i);
+            }
+            a[i] = sum;
+            // delete next
+            int l = left[nxt], r = right[nxt];
+            right[l] = r;
+            left[r] = l;
+            right[nxt] = n; // delete
+        }
+        return ans;
+    }
+};
+// 1ms 27.96MB
