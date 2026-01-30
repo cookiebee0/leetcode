@@ -1,0 +1,34 @@
+class Solution {
+public:
+    long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
+        vector ch(26, vector<int> (26, -1));
+        int n = source.size(), m = original.size();
+        long long ans = 0;
+        for (int i = 0; i < m; i++) {
+            int ch_a = original[i] - 'a', ch_b = changed[i] - 'a';
+            if (ch[ch_a][ch_b] != -1) {
+                ch[ch_a][ch_b] = min(ch[ch_a][ch_b], cost[i]);
+            } else ch[ch_a][ch_b] = cost[i];
+        }
+        for (int i = 0; i < 26; i++) {
+            ch[i][i] = 0;
+        }
+        for (int k = 0; k < 26; k++) {
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 26; j++) {
+                    if (ch[i][k] == -1 || ch[k][j] == -1) continue;
+                    if (ch[i][j] == -1) ch[i][j] = ch[i][k] + ch[k][j];
+                    else ch[i][j] = min(ch[i][j], ch[i][k] + ch[k][j]);
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            int ch_a = source[i] - 'a', ch_b = target[i] - 'a';
+            int tmp = ch[ch_a][ch_b];
+            if (tmp == -1) return -1;
+            ans += tmp;
+        }
+        return ans;
+    }
+};
+// 24ms 97.67MB
